@@ -6,16 +6,18 @@ import (
 	"net/http"
 )
 
-func ValidationDataAndParseToJson(w http.ResponseWriter, r *http.Request) (Producto, error) {
-	var p Producto
+/* Aca se hacen todas las validaciones del producto, y devuelve el producto model */
+func AcaSeValidanLosDatosDeEntrada(r *http.Request) (Producto, error) {
+	var producto Producto
 
-	err := json.NewDecoder(r.Body).Decode(&p)
-	if err != nil {
-		return p, errors.New("Tipo de datos incorrectos.")
+	errorAlParsear := json.NewDecoder(r.Body).Decode(&producto)
+	if errorAlParsear != nil {
+		return producto, errors.New("Tipo de datos incorrectos.")
 	}
 
-	if len(p.Nombre) < 3 {
-		return p, errors.New("El nombre del producto debe tener 3 o mas caracteres")
+	if len(producto.Nombre) < 3 {
+		return producto, errors.New("El nombre del producto debe tener 3 o mas caracteres")
 	}
-	return p, nil
+
+	return producto, nil
 }

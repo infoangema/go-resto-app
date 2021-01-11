@@ -12,5 +12,12 @@ func GetConnectionToDB() *sql.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	/* descomentar cuando se encuentre la solucion de porque no lee el archivo de models.sql */
+	/*	err = MakeMigration(connectionToDB)
+		if err != nil {
+			log.Panic(err)
+		}*/
+
 	return connectionToDB
 }
