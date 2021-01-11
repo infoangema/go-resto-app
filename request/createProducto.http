@@ -1,0 +1,29 @@
+POST http://{{local}}/productos/create
+Content-Type: application/json
+
+{
+  "nombre": "Cerveza",
+  "descripcion": "Cerveza",
+  "precio": 255.36
+}
+
+###
+GET http://{{local}}/productos/get/1
+
+###
+PUT http://{{local}}/productos/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nombre": "Cerveza update",
+  "descripcion": "Cerveza",
+  "precio": 255.36
+}
+
+
+###
+DELETE http://{{local}}/productos/delete/2
+
+###
+GET http://{{local}}/productos/get
