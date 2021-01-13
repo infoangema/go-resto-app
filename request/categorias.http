@@ -1,0 +1,28 @@
+POST http://{{local}}/categorias/create
+Content-Type: application/json
+
+{
+  "nombre": "Cerveza",
+  "descripcion": "Cerveza"
+}
+
+###
+GET http://{{local}}/categorias/get/2
+
+###
+PUT http://{{local}}/categorias/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nombre": "Cerveza update",
+  "descripcion": "Cerveza",
+  "precio": 255.36
+}
+
+
+###
+DELETE http://{{local}}/categorias/delete/1
+
+###
+GET http://{{local}}/categorias/get
