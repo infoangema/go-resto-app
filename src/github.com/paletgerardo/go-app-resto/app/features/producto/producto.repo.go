@@ -1,15 +1,29 @@
 package producto
 
 import (
-	"database/sql"
 	"errors"
 	"fmt"
 	"github.com/paletgerardo/go-app-resto/core/db"
 	"log"
+	"time"
 )
 
 func AcaSeGuardaElProducto(p Producto) error {
-	queryString := `INSERT INTO productos (nombre, descripcion, precio) VALUES ($1, $2, $3)`
+
+	p.Activo = true
+	p.Updated = time.Now()
+	p.Created = time.Now()
+
+	queryString := `INSERT INTO productos (
+                       nombre,
+                       descripcion,
+                       precio,
+                       activo,
+                       created,
+                       updated,
+                       categoriaid
+                       ) 
+                       VALUES ($1, $2, $3,$4, $5, $6, $7)`
 
 	connectionDB := db.GetConnectionToDB()
 	defer connectionDB.Close()
@@ -21,7 +35,7 @@ func AcaSeGuardaElProducto(p Producto) error {
 	}
 	defer statment.Close()
 
-	row, err := statment.Exec(p.Nombre, p.Descripcion, p.Precio)
+	row, err := statment.Exec(p.Nombre, p.Descripcion, p.Precio, p.Activo, p.Created, p.Updated, p.CategoriaId)
 	if err != nil {
 		log.Print(err)
 		return err
@@ -48,15 +62,16 @@ func BuscarUnProductoPorId(id int) (Producto, error) {
 		&producto.Id,
 		&producto.Nombre,
 		&producto.Descripcion,
-		&producto.Activo, &producto.Created,
+		&producto.Activo,
+		&producto.Created,
 		&producto.Updated,
 		&producto.Precio,
 		&producto.CategoriaId,
 	)
 
-	if errorAlParsearDatos != nil && errorAlParsearDatos != sql.ErrNoRows {
+	if errorAlParsearDatos != nil {
 		fmt.Println(errorAlParsearDatos.Error())
-		return producto, errorAlParsearDatos
+		return producto, errors.New("Producto no encontrado, " + errorAlParsearDatos.Error())
 	}
 
 	return producto, nil
@@ -64,11 +79,17 @@ func BuscarUnProductoPorId(id int) (Producto, error) {
 }
 
 func AcaSeActualizaElProducto(aguardar Producto) error {
+
+	aguardar.Updated = time.Now()
+
 	queryString := `UPDATE productos set 
                      nombre=$1,
                      descripcion=$2,
-                     precio=$3
-					where id = $4`
+                     activo=$3,
+                     updated=$4,
+                     precio=$5,
+                     categoriaid=$6                     
+					where id = $7`
 
 	connectionDB := db.GetConnectionToDB()
 	defer connectionDB.Close()
@@ -80,7 +101,15 @@ func AcaSeActualizaElProducto(aguardar Producto) error {
 	}
 	defer statment.Close()
 
-	row, err := statment.Exec(aguardar.Nombre, aguardar.Descripcion, aguardar.Precio, aguardar.Id)
+	row, err := statment.Exec(
+		aguardar.Nombre,
+		aguardar.Descripcion,
+		aguardar.Activo,
+		aguardar.Updated,
+		aguardar.Precio,
+		aguardar.CategoriaId,
+		aguardar.Id,
+	)
 	if err != nil {
 		log.Print(err)
 		return err
@@ -128,14 +157,23 @@ func BuscarTodosLosProducto() ([]*Producto, error) {
 	connectionDB := db.GetConnectionToDB()
 	defer connectionDB.Close()
 
-	rows, err := connectionDB.Query("SELECT  id, nombre, descripcion, precio FROM productos limit 20")
+	rows, err := connectionDB.Query("SELECT  * FROM productos")
 	if err != nil {
 		log.Print(err)
 	}
 
 	for rows.Next() {
 		prd := new(Producto)
-		if err := rows.Scan(&prd.Id, &prd.Nombre, &prd.Descripcion, &prd.Precio); err != nil {
+		if err := rows.Scan(
+			&prd.Id,
+			&prd.Nombre,
+			&prd.Descripcion,
+			&prd.Activo,
+			&prd.Created,
+			&prd.Updated,
+			&prd.Precio,
+			&prd.CategoriaId,
+		); err != nil {
 			panic(err)
 		}
 		productos = append(productos, prd)
