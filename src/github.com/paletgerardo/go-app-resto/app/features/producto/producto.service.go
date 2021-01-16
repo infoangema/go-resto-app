@@ -36,7 +36,7 @@ func Read(w http.ResponseWriter, r *http.Request) {
 
 	producto, errorAlBuscar := BuscarUnProductoPorId(idInt)
 	if errorAlBuscar != nil {
-		http.Error(w, "Producto no encontrado: "+errorAlBuscar.Error(), 400)
+		http.Error(w, errorAlBuscar.Error(), 400)
 		return
 	}
 

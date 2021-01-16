@@ -19,16 +19,16 @@ func HandlerRequest() {
 
 	// RUTAS
 	router.HandleFunc("/productos/create", interceptors.InterceptToken(producto.Create)).Methods("POST")
-	router.HandleFunc("/productos/get/{id}", producto.Read).Methods("GET")
-	router.HandleFunc("/productos/update", producto.Update).Methods("PUT")
-	router.HandleFunc("/productos/delete/{id}", producto.Delete).Methods("DELETE")
-	router.HandleFunc("/productos/get", producto.ReadAll).Methods("GET")
+	router.HandleFunc("/productos/get/{id}", interceptors.InterceptToken(producto.Read)).Methods("GET")
+	router.HandleFunc("/productos/update", interceptors.InterceptToken(producto.Update)).Methods("PUT")
+	router.HandleFunc("/productos/delete/{id}", interceptors.InterceptToken(producto.Delete)).Methods("DELETE")
+	router.HandleFunc("/productos/get", interceptors.InterceptToken(producto.ReadAll)).Methods("GET")
 
-	router.HandleFunc("/categorias/create", categorias.Create).Methods("POST")
-	router.HandleFunc("/categorias/get/{id}", categorias.Read).Methods("GET")
-	router.HandleFunc("/categorias/update", categorias.Update).Methods("PUT")
-	router.HandleFunc("/categorias/delete/{id}", categorias.Delete).Methods("DELETE")
-	router.HandleFunc("/categorias/get", categorias.ReadAll).Methods("GET")
+	router.HandleFunc("/categorias/create", interceptors.InterceptToken(categorias.Create)).Methods("POST")
+	router.HandleFunc("/categorias/get/{id}", interceptors.InterceptToken(categorias.Read)).Methods("GET")
+	router.HandleFunc("/categorias/update", interceptors.InterceptToken(categorias.Update)).Methods("PUT")
+	router.HandleFunc("/categorias/delete/{id}", interceptors.InterceptToken(categorias.Delete)).Methods("DELETE")
+	router.HandleFunc("/categorias/get", interceptors.InterceptToken(categorias.ReadAll)).Methods("GET")
 
 	router.HandleFunc("/login", jwt.Access).Methods("POST")
 
