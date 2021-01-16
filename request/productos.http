@@ -8,22 +8,22 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGVsbGlkbyI6InBhbGV0Iiwi
 }
 
 ###
-GET http://{{local}}/productos/get/1
+GET http://{{local}}/productos/get/9
 
 ###
 PUT http://{{local}}/productos/update
 Content-Type: application/json
 
 {
-  "id": 1,
-  "nombre": "Cerveza update",
+  "id": 14,
+  "nombre": "Cerveza update 14",
   "descripcion": "Cerveza",
   "precio": 255.36
 }
 
 
 ###
-DELETE http://{{local}}/productos/delete/2
+DELETE http://{{local}}/productos/delete/15
 
 ###
 GET http://{{local}}/productos/get
