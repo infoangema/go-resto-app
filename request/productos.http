@@ -1,6 +1,6 @@
 POST http://{{local}}/productos/create
 Content-Type: application/json
-
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGVsbGlkbyI6InBhbGV0IiwiZW1haWwiOiJwYWxldGdlcmFyZG9AZ21haWwuY29tIiwiZXhwIjoxNjEwODQxOTExLCJmZWNoYU5hY2ltaWVudG8iOiIxOTgzLTAzLTEyVDIzOjE3OjExWiIsImlkIjoxLCJub21icmUiOiJIdWdvIEdlcmFyZG8ifQ.ks-XkoLr3pPhRLDDtyfk0Ve4OiQR1MSGfgdmuZWVcPI
 {
   "nombre": "Cerveza",
   "descripcion": "Cerveza",

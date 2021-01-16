@@ -1,0 +1,7 @@
+POST http://{{local}}/login
+Content-Type: application/json
+
+{
+  "email": "paletgerardo@gmail.com",
+  "password": "120383.."
+}
