@@ -6,18 +6,7 @@ import (
 	"fmt"
 	"github.com/paletgerardo/go-app-resto/core/db"
 	"log"
-	"time"
 )
-
-type Producto struct {
-	Id          int       `json:"id"`
-	Nombre      string    `json:"nombre"`
-	Descripcion string    `json:"descripcion"`
-	Precio      float32   `json:"precio"`
-	Activo      bool      `json:"activo"`
-	Created     time.Time `json:"created"`
-	Updated     time.Time `json:"updated"`
-}
 
 func AcaSeGuardaElProducto(p Producto) error {
 	queryString := `INSERT INTO productos (nombre, descripcion, precio) VALUES ($1, $2, $3)`
@@ -27,14 +16,14 @@ func AcaSeGuardaElProducto(p Producto) error {
 
 	statment, err := connectionDB.Prepare(queryString)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 		return err
 	}
 	defer statment.Close()
 
 	row, err := statment.Exec(p.Nombre, p.Descripcion, p.Precio)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 		return err
 	}
 
@@ -55,7 +44,15 @@ func BuscarUnProductoPorId(id int) (Producto, error) {
 	defer connectionDB.Close()
 
 	row := connectionDB.QueryRow(queryString, id)
-	errorAlParsearDatos := row.Scan(&producto.Id, &producto.Nombre, &producto.Descripcion, &producto.Precio)
+	errorAlParsearDatos := row.Scan(
+		&producto.Id,
+		&producto.Nombre,
+		&producto.Descripcion,
+		&producto.Activo, &producto.Created,
+		&producto.Updated,
+		&producto.Precio,
+		&producto.CategoriaId,
+	)
 
 	if errorAlParsearDatos != nil && errorAlParsearDatos != sql.ErrNoRows {
 		fmt.Println(errorAlParsearDatos.Error())
@@ -78,14 +75,14 @@ func AcaSeActualizaElProducto(aguardar Producto) error {
 
 	statment, err := connectionDB.Prepare(queryString)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 		return err
 	}
 	defer statment.Close()
 
 	row, err := statment.Exec(aguardar.Nombre, aguardar.Descripcion, aguardar.Precio, aguardar.Id)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 		return err
 	}
 
@@ -105,14 +102,14 @@ func BorrarUnProductoPorId(id int) error {
 
 	statment, err := connectionDB.Prepare(queryString)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 		return err
 	}
 	defer statment.Close()
 
 	row, err := statment.Exec(id)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 		return err
 	}
 
@@ -133,7 +130,7 @@ func BuscarTodosLosProducto() ([]*Producto, error) {
 
 	rows, err := connectionDB.Query("SELECT  id, nombre, descripcion, precio FROM productos limit 20")
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	for rows.Next() {
