@@ -25,13 +25,6 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 }
 
-type contextKey int
-
-const (
-	varsKey contextKey = 0
-	routeKey
-)
-
 func Read(w http.ResponseWriter, r *http.Request) {
 
 	id := mux.Vars(r)["id"]
