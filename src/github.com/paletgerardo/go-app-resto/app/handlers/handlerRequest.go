@@ -34,6 +34,9 @@ func HandlerRequest() {
 
 	// START APP
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
 	handler := cors.AllowAll().Handler(router)
 	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
