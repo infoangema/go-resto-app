@@ -16,7 +16,7 @@ func AcaSeBuscaElUsuario(email string) (structs.UserLogin, bool, int) {
 	defer connectionDB.Close()
 
 	row := connectionDB.QueryRow(queryString, email)
-	errorAlParsearDatos := row.Scan(&usuario.Id, &usuario.Nombre, &usuario.Apellido, &usuario.Email, &usuario.Password, &usuario.FechaNacimiento, &usuario.Created, &usuario.Updated)
+	errorAlParsearDatos := row.Scan(&usuario.Id, &usuario.Nombre, &usuario.Apellido, &usuario.Email, &usuario.Password, &usuario.FechaNacimiento, &usuario.Created_at, &usuario.Updated_at)
 
 	if errorAlParsearDatos != nil && errorAlParsearDatos != sql.ErrNoRows {
 		fmt.Println(errorAlParsearDatos.Error())

@@ -11,16 +11,16 @@ import (
 func AcaSeGuardaElProducto(p Producto) error {
 
 	p.Activo = true
-	p.Updated = time.Now()
-	p.Created = time.Now()
+	p.Updated_at = time.Now()
+	p.Created_at = time.Now()
 
 	queryString := `INSERT INTO productos (
                        nombre,
                        descripcion,
                        precio,
                        activo,
-                       created,
-                       updated,
+                       CreatedAt,
+                       UpdatedAt,
                        categoriaid
                        ) 
                        VALUES ($1, $2, $3,$4, $5, $6, $7)`
@@ -35,7 +35,7 @@ func AcaSeGuardaElProducto(p Producto) error {
 	}
 	defer statment.Close()
 
-	row, err := statment.Exec(p.Nombre, p.Descripcion, p.Precio, p.Activo, p.Created, p.Updated, p.CategoriaId)
+	row, err := statment.Exec(p.Nombre, p.Descripcion, p.Precio, p.Activo, p.Created_at, p.Updated_at, p.CategoriaId)
 	if err != nil {
 		log.Print(err)
 		return err
@@ -63,8 +63,8 @@ func BuscarUnProductoPorId(id int) (Producto, error) {
 		&producto.Nombre,
 		&producto.Descripcion,
 		&producto.Activo,
-		&producto.Created,
-		&producto.Updated,
+		&producto.Created_at,
+		&producto.Updated_at,
 		&producto.Precio,
 		&producto.CategoriaId,
 	)
@@ -80,13 +80,13 @@ func BuscarUnProductoPorId(id int) (Producto, error) {
 
 func AcaSeActualizaElProducto(aguardar Producto) error {
 
-	aguardar.Updated = time.Now()
+	aguardar.Updated_at = time.Now()
 
 	queryString := `UPDATE productos set 
                      nombre=$1,
                      descripcion=$2,
                      activo=$3,
-                     updated=$4,
+                     UpdatedAt=$4,
                      precio=$5,
                      categoriaid=$6                     
 					where id = $7`
@@ -105,7 +105,7 @@ func AcaSeActualizaElProducto(aguardar Producto) error {
 		aguardar.Nombre,
 		aguardar.Descripcion,
 		aguardar.Activo,
-		aguardar.Updated,
+		aguardar.Updated_at,
 		aguardar.Precio,
 		aguardar.CategoriaId,
 		aguardar.Id,
@@ -169,8 +169,8 @@ func BuscarTodosLosProducto() ([]*Producto, error) {
 			&prd.Nombre,
 			&prd.Descripcion,
 			&prd.Activo,
-			&prd.Created,
-			&prd.Updated,
+			&prd.Created_at,
+			&prd.Updated_at,
 			&prd.Precio,
 			&prd.CategoriaId,
 		); err != nil {
