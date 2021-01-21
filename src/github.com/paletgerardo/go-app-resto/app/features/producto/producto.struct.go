@@ -10,7 +10,7 @@ type Producto struct {
 	Descripcion string    `json:"descripcion"`
 	Precio      float32   `json:"precio"`
 	Activo      bool      `json:"activo"`
-	Created     time.Time `json:"created"`
-	Updated     time.Time `json:"updated"`
+	Created_at  time.Time `json:"CreatedAt"`
+	Updated_at  time.Time `json:"UpdatedAt"`
 	CategoriaId int       `json:"categoriaId"`
 }

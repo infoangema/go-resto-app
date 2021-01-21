@@ -30,7 +30,7 @@ func Read(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	idInt, err := strconv.Atoi(id)
 	if err != nil {
-		http.Error(w, "Id invalido: "+err.Error(), 400)
+		http.Error(w, "ID invalido: "+err.Error(), 400)
 		return
 	}
 
@@ -69,7 +69,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	idInt, err := strconv.Atoi(id)
 	if err != nil {
-		http.Error(w, "Id invalido: "+err.Error(), 400)
+		http.Error(w, "ID invalido: "+err.Error(), 400)
 		return
 	}
 

@@ -19,6 +19,6 @@
   nombre VARCHAR(50) NOT NULL,
   descripcion VARCHAR(50),
   activo BOOLEAN NOT NULL Default true,
-  created TIMESTAMP NOT NULL DEFAULT NOW(),
-  updated TIMESTAMP
+  Created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  Updated_at TIMESTAMP
   );

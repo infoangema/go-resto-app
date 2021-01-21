@@ -3,6 +3,8 @@ package db
 import (
 	"database/sql"
 	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 	"log"
 )
 
@@ -12,12 +14,17 @@ func GetConnectionToDB() *sql.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	/* descomentar cuando se encuentre la solucion de porque no lee el archivo de models.sql */
-	/*	err = MakeMigration(connectionToDB)
-		if err != nil {
-			log.Panic(err)
-		}*/
-
 	return connectionToDB
+}
+
+func GetPostgresConnection() *gorm.DB {
+	sqlDB := GetConnectionToDB()
+	gormDB, err := gorm.Open(postgres.New(postgres.Config{
+		Conn: sqlDB,
+	}), &gorm.Config{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return gormDB
 }

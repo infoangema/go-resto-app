@@ -9,6 +9,6 @@ type UserLogin struct {
 	Email           string    `json:"email"`
 	Password        string    `json:"password"`
 	FechaNacimiento time.Time `json:"fechaNacimiento"`
-	Created         time.Time `json:"created"`
-	Updated         time.Time `json:"updated,omitempty"`
+	Created_at      time.Time `json:"CreatedAt"`
+	Updated_at      time.Time `json:"UpdatedAt,omitempty"`
 }

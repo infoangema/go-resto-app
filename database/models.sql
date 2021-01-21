@@ -6,7 +6,7 @@ create table if not exists productos
     nombre      varchar(100)                   not null,
     descripcion varchar(500),
     activo      boolean          default true,
-    created     timestamp        default now() not null,
+    Created_at     timestamp        default now() not null,
     update      timestamp        default now() not null,
     precio      double precision default 0.00,
     categoriaid integer
@@ -23,8 +23,8 @@ create table if not exists categorias
     nombre      varchar(100)            not null,
     descripcion varchar(500),
     activo      boolean   default true,
-    created     timestamp default now() not null,
-    updated     timestamp default now() not null
+    Created_at     timestamp default now() not null,
+    Updated_at     timestamp default now() not null
 );
 
 create table if not exists usuarios
@@ -37,7 +37,7 @@ create table if not exists usuarios
     email           varchar(100),
     password        varchar(256)            not null,
     fechanacimiento timestamp,
-    created         timestamp default now() not null,
-    updated         timestamp default now() not null
+    Created_at         timestamp default now() not null,
+    Updated_at         timestamp default now() not null
 );
 
