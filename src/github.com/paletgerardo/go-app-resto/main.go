@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	gormDB := db.GetPostgresConnection()
+	gormDB := db.GetGormConnection()
 	_ = gormDB.AutoMigrate(&productos.Producto{}, &categorias.Categoria{})
 	handlers.HandlerRequest()
 }

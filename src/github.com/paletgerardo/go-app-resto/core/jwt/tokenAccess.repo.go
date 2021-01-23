@@ -1,13 +1,12 @@
 package jwt
 
 import (
-	"database/sql"
-	"fmt"
 	"github.com/paletgerardo/go-app-resto/core/db"
 	"github.com/paletgerardo/go-app-resto/core/structs"
+	"github.com/pkg/errors"
 )
 
-func AcaSeBuscaElUsuario(email string) (structs.UserLogin, bool, int) {
+/*func AcaSeBuscaElUsuario(email string) (structs.UserLogin, int, error) {
 	var usuario structs.UserLogin
 
 	queryString := `select * from usuarios where email = $1`
@@ -20,8 +19,22 @@ func AcaSeBuscaElUsuario(email string) (structs.UserLogin, bool, int) {
 
 	if errorAlParsearDatos != nil && errorAlParsearDatos != sql.ErrNoRows {
 		fmt.Println(errorAlParsearDatos.Error())
-		return usuario, false, -1
+		return usuario, -1, errorAlParsearDatos
 	}
 
-	return usuario, true, usuario.Id
+	return usuario, usuario.Id, nil
+}*/
+
+func AcaSeBuscaElUsuario(email string) (structs.UserLogin, int, error) {
+	var usuario structs.UserLogin
+
+	gormConnection := db.GetGormConnection()
+
+	result := gormConnection.Model(&structs.UserLogin{}).Where("email = ?", email).Find(&usuario)
+
+	if result != nil {
+		return usuario, -1, errors.New("Error al buscar usuario login.")
+	}
+
+	return usuario, usuario.Id, nil
 }
