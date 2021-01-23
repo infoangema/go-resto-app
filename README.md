@@ -22,3 +22,16 @@
   Created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   Updated_at TIMESTAMP
   );
+
+
+# BASICOS
+## instalar librerias Go!
+
+- [ ] go mod init
+- [ ] go mod vendor
+
+## variables de entorno
+- [x] vars.env -> export DB_NAME
+- [ ] comando -> source vars.env
+- [ ] comando -> printenv
+
