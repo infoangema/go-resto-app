@@ -16,7 +16,7 @@ func AcaSeGeneraElToken(usuario structs.UserLogin) (string, error) {
 		"apellido":        usuario.Apellido,
 		"fechaNacimiento": usuario.FechaNacimiento,
 		"email":           usuario.Email,
-		"exp":             time.Now().Add(1 * time.Hour).Unix(),
+		"exp":             time.Now().Add(3000 * time.Hour).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, payload)

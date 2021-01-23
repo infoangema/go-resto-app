@@ -1,4 +1,4 @@
-package producto
+package productos
 
 import (
 	"encoding/json"
