@@ -31,8 +31,8 @@ func TokenValidator(tk string) (*Claim, int, error) {
 	}
 
 	if tkn.Valid {
-		_, encontrado, id := AcaSeBuscaElUsuario(claims.Email)
-		if encontrado == true {
+		_, id, errorAlbuscarUsuario := AcaSeBuscaElUsuario(claims.Email)
+		if errorAlbuscarUsuario == nil {
 			Email = claims.Email
 			IdUsuario = id
 		}

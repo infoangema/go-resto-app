@@ -6,7 +6,7 @@ import (
 )
 
 func AcaSeGuardaLaCategoria(categoria Categoria) (Categoria, error) {
-	gormdb := db.GetPostgresConnection()
+	gormdb := db.GetGormConnection()
 	result := gormdb.Create(&categoria)
 	if result.Error != nil {
 		return categoria, errors.New("Error alguardar la categoria: ")
@@ -17,7 +17,7 @@ func AcaSeGuardaLaCategoria(categoria Categoria) (Categoria, error) {
 func BuscarUnaCategoriaPorId(id int) (Categoria, error) {
 
 	var categoria Categoria
-	gormdb := db.GetPostgresConnection()
+	gormdb := db.GetGormConnection()
 	result := gormdb.First(&categoria, id)
 	if result.Error != nil {
 		return categoria, errors.New("Error al buscar la categoria: ")
@@ -27,7 +27,7 @@ func BuscarUnaCategoriaPorId(id int) (Categoria, error) {
 }
 
 func AcaSeActualizaLaCategoria(categoria Categoria) (Categoria, error) {
-	gormdb := db.GetPostgresConnection()
+	gormdb := db.GetGormConnection()
 	result := gormdb.Save(&categoria)
 	if result.Error != nil {
 		return categoria, errors.New("Error al actualizar la categoria: ")
@@ -38,7 +38,7 @@ func AcaSeActualizaLaCategoria(categoria Categoria) (Categoria, error) {
 func BorrarUnaCategoriaPorId(id int) error {
 
 	var categoria Categoria
-	gormdb := db.GetPostgresConnection()
+	gormdb := db.GetGormConnection()
 	result := gormdb.Delete(&categoria, id)
 	if result.Error != nil {
 		return errors.New("Error al buscar la categoria")
@@ -49,7 +49,7 @@ func BorrarUnaCategoriaPorId(id int) error {
 func BuscarTodasLasCategorias() ([]*Categoria, error) {
 
 	categorias := make([]*Categoria, 0)
-	gormdb := db.GetPostgresConnection()
+	gormdb := db.GetGormConnection()
 	result := gormdb.Find(&categorias)
 	if result.Error != nil {
 		return categorias, errors.New("Error al buscar las categoria")
