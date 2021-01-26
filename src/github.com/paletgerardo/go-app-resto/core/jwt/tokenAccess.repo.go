@@ -6,8 +6,8 @@ import (
 	"github.com/pkg/errors"
 )
 
-/*func AcaSeBuscaElUsuario(email string) (structs.UserLogin, int, error) {
-	var usuario structs.UserLogin
+/*func AcaSeBuscaElUsuario(email string) (structs.Usuarios, int, error) {
+	var usuario structs.Usuarios
 
 	queryString := `select * from usuarios where email = $1`
 
@@ -25,14 +25,14 @@ import (
 	return usuario, usuario.Id, nil
 }*/
 
-func AcaSeBuscaElUsuario(email string) (structs.UserLogin, int, error) {
-	var usuario structs.UserLogin
+func AcaSeBuscaElUsuario(email string) (structs.Usuarios, int, error) {
+	var usuario structs.Usuarios
 
 	gormConnection := db.GetGormConnection()
 
-	result := gormConnection.Model(&structs.UserLogin{}).Where("email = ?", email).Find(&usuario)
+	result := gormConnection.Model(&structs.Usuarios{}).Where("email = ?", email).Find(&usuario)
 
-	if result != nil {
+	if result.Error != nil {
 		return usuario, -1, errors.New("Error al buscar usuario login.")
 	}
 

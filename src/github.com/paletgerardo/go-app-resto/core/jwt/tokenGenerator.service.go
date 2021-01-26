@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func AcaSeGeneraElToken(usuario structs.UserLogin) (string, error) {
+func AcaSeGeneraElToken(usuario structs.Usuarios) (string, error) {
 
 	firma := []byte(os.Getenv("CLAVETOKEN"))
 	payload := jwt.MapClaims{
