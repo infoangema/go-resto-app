@@ -1,4 +1,4 @@
-module ./
+module github.com/paletgerardo/go-app-resto
 
 // +heroku install github.com/paletgerardo/go-app-resto
 // +heroku goVersion go1.15
