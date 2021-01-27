@@ -1,5 +1,6 @@
 module github.com/paletgerardo/go-app-resto
 
+// +heroku goVersion go 1.15
 go 1.15
 
 require (
