@@ -15,9 +15,9 @@ func Access(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 2- buscar si el usuarioDeAcceso esta en la base de datos y devolver usuario.
-	usuario, errorAlBuscarUsuario, _ := AcaSeBuscaElUsuario(usuarioDeAcceso.Email)
-	if errorAlBuscarUsuario == false {
-		http.Error(w, "Error al buscar usuarioDeLogin.", 400)
+	usuario, _, errorAlBuscarUsuario := AcaSeBuscaElUsuario(usuarioDeAcceso.Email)
+	if errorAlBuscarUsuario != nil {
+		http.Error(w, "Error al buscar usuario: "+errorAlBuscarUsuario.Error(), 400)
 		return
 	}
 

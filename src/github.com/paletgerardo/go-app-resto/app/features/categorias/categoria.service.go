@@ -15,13 +15,15 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	errorAlGuardar := AcaSeGuardaLaCategoria(categoriaParaGuardar)
+	categoriaGuardada, errorAlGuardar := AcaSeGuardaLaCategoria(categoriaParaGuardar)
 	if errorAlGuardar != nil {
 		http.Error(w, "Error al guardar la categoria: "+errorAlGuardar.Error(), 400)
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(categoriaGuardada)
 
 }
 
@@ -30,7 +32,7 @@ func Read(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	idInt, err := strconv.Atoi(id)
 	if err != nil {
-		http.Error(w, "Id invalido: "+err.Error(), 400)
+		http.Error(w, "ID invalido, ejecutado por func Read() en la linea 34: "+err.Error(), 400)
 		return
 	}
 
@@ -54,13 +56,15 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	errorAlGuardarCategoria := AcaSeActualizaLaCategoria(categoriaAguardar)
+	categoria, errorAlGuardarCategoria := AcaSeActualizaLaCategoria(categoriaAguardar)
 	if errorAlGuardarCategoria != nil {
 		http.Error(w, "Error: "+errorAlGuardarCategoria.Error(), 400)
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(categoria)
 
 }
 
@@ -69,7 +73,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	idInt, err := strconv.Atoi(id)
 	if err != nil {
-		http.Error(w, "Id invalido: "+err.Error(), 400)
+		http.Error(w, "ID invalido: "+err.Error(), 400)
 		return
 	}
 
@@ -79,8 +83,8 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
-
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusAccepted)
 }
 
 func ReadAll(w http.ResponseWriter, r *http.Request) {

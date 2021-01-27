@@ -1,4 +1,4 @@
-package producto
+package productos
 
 import (
 	"encoding/json"
@@ -15,13 +15,15 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	errorAlGuardarProducto := AcaSeGuardaElProducto(productoAguardar)
+	productoGuardado, errorAlGuardarProducto := AcaSeGuardaElProducto(productoAguardar)
 	if errorAlGuardarProducto != nil {
 		http.Error(w, "Error: "+errorAlGuardarProducto.Error(), 400)
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+	_ = json.NewEncoder(w).Encode(productoGuardado)
 
 }
 
@@ -30,7 +32,7 @@ func Read(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	idInt, err := strconv.Atoi(id)
 	if err != nil {
-		http.Error(w, "Id invalido: "+err.Error(), 400)
+		http.Error(w, "ID invalido: "+err.Error(), 400)
 		return
 	}
 
@@ -42,7 +44,7 @@ func Read(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(producto)
+	_ = json.NewEncoder(w).Encode(producto)
 
 }
 
@@ -54,13 +56,15 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	errorAlGuardarProducto := AcaSeActualizaElProducto(productoAguardar)
+	productoActualizado, errorAlGuardarProducto := AcaSeActualizaElProducto(productoAguardar)
 	if errorAlGuardarProducto != nil {
 		http.Error(w, "Error: "+errorAlGuardarProducto.Error(), 400)
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+	_ = json.NewEncoder(w).Encode(productoActualizado)
 
 }
 
@@ -69,7 +73,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	idInt, err := strconv.Atoi(id)
 	if err != nil {
-		http.Error(w, "Id invalido: "+err.Error(), 400)
+		http.Error(w, "ID invalido: "+err.Error(), 400)
 		return
 	}
 
@@ -92,6 +96,6 @@ func ReadAll(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(productos)
+	_ = json.NewEncoder(w).Encode(productos)
 
 }
