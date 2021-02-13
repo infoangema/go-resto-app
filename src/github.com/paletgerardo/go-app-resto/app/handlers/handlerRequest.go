@@ -32,6 +32,8 @@ func HandlerRequest() {
 
 	router.HandleFunc("/login", jwt.Access).Methods("POST")
 
+	//router.HandleFunc("/peticion/{id}", peticion).Methods("GET")
+
 	// START APP
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -39,4 +41,32 @@ func HandlerRequest() {
 	}
 	handler := cors.AllowAll().Handler(router)
 	log.Fatal(http.ListenAndServe(":"+port, handler))
+}
+
+func peticion(w http.ResponseWriter, r *http.Request) {
+	reg := mux.Vars(r)["id"]
+	/*miHttpClient := &http.Client{}
+	url := "https://httpbin.org/get"
+	peticion, erroEnPeticion := http.NewRequest("GET", url, nil)
+	if erroEnPeticion != nil {
+		http.Error(w, "error en la peticion", 400)
+	}
+
+	respuesta, errorEnRespuesta := miHttpClient.Do(peticion)
+	if errorEnRespuesta != nil {
+		http.Error(w, "error al intentar obtener la respuesta de la peticion", 400)
+
+	}
+	defer respuesta.Body.Close()
+
+	respuestaByte, errorAlLeeresp := ioutil.ReadAll(respuesta.Body)
+	if errorAlLeeresp != nil {
+		http.Error(w, "error al intentar obtener la respuesta de la peticion", 400)
+	}
+	respuestaString := string(respuestaByte) + " reg: " + reg*/
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	//w.Write([]byte(respuestaString))
+	w.Write([]byte(reg))
+
 }

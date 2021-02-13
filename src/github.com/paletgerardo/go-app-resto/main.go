@@ -11,5 +11,6 @@ import (
 func main() {
 	gormDB := db.GetGormConnection()
 	_ = gormDB.AutoMigrate(&productos.Producto{}, &categorias.Categoria{}, &structs.Usuarios{})
+
 	handlers.HandlerRequest()
 }
