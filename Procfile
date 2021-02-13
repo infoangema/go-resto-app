@@ -1,1 +1,1 @@
-web: go-app-resto
+web: github.com/paletgerardo/go-app-resto
