@@ -1,37 +1,48 @@
+
 # go-app-resto
 
-## Conectar con POSTGRES
-### Conectar a postgresql para utiluzar por terminal
- - sudo -u postgres psql
+A barebones Go app, which can easily be deployed to Heroku.
 
-### Cambiar password
-- sudo -u postgres psql -c "ALTER USER postgres PASSWORD '9003';"
+This application supports the [Getting Started with Go on Heroku](https://devcenter.heroku.com/articles/getting-started-with-go) article - check it out.
 
-### Crear usuario
-- CREATE USER gerrdev PASSWORD '9003';
+## Running Locally
 
-### Crear base de datos y asignar usuario
-- CREATE DATABASE restodb OWNER gerrdev;
+Make sure you have [Go](http://golang.org/doc/install) version 1.12 or newer and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
 
-### Crear tabla productos
-- CREATE TABLE productos (
-  id SERIAL PRIMARY KEY,
-  nombre VARCHAR(50) NOT NULL,
-  descripcion VARCHAR(50),
-  activo BOOLEAN NOT NULL Default true,
-  Created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  Updated_at TIMESTAMP
-  );
+```sh
+$ git clone https://github.com/heroku/go-app-resto.git
+$ cd go-app-resto
+$ go build -o bin/go-app-resto -v . # or `go build -o bin/go-app-resto.exe -v .` in git bash
+github.com/mattn/go-colorable
+gopkg.in/bluesuncorp/validator.v5
+golang.org/x/net/context
+github.com/heroku/x/hmetrics
+github.com/gin-gonic/gin/render
+github.com/manucorporat/sse
+github.com/heroku/x/hmetrics/onload
+github.com/gin-gonic/gin/binding
+github.com/gin-gonic/gin
+github.com/heroku/go-app-resto
+$ heroku local
+```
+
+Your app should now be running on [localhost:5000](http://localhost:5000/).
+
+## Deploying to Heroku
+
+```sh
+$ heroku create
+$ git push heroku main
+$ heroku open
+```
+
+or
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 
-# BASICOS
-## instalar librerias Go!
+## Documentation
 
-- [ ] go mod init
-- [ ] go mod vendor
+For more information about using Go on Heroku, see these Dev Center articles:
 
-## variables de entorno
-- [x] vars.env -> export DB_NAME
-- [ ] comando -> source vars.env
-- [ ] comando -> printenv
-
+- [Go on Heroku](https://devcenter.heroku.com/categories/go)

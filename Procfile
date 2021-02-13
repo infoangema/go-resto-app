@@ -1,1 +1,1 @@
-web: go-app-resto
+web: bin/go-app-resto

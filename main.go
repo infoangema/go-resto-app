@@ -1,11 +1,11 @@
 package main
 
 import (
-	"./src/github.com/paletgerardo/go-app-resto/app/features/categorias"
-	"./src/github.com/paletgerardo/go-app-resto/app/features/productos"
-	"./src/github.com/paletgerardo/go-app-resto/app/handlers"
-	"./src/github.com/paletgerardo/go-app-resto/core/db"
-	"./src/github.com/paletgerardo/go-app-resto/core/structs"
+	"go-app-resto/app/features/categorias"
+	"go-app-resto/app/features/productos"
+	"go-app-resto/app/handlers"
+	"go-app-resto/core/db"
+	"go-app-resto/core/structs"
 )
 
 func main() {
