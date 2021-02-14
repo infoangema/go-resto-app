@@ -57,3 +57,5 @@ $ heroku data:mtls:ip-rules:create restodb --app go-resto-app \
 ```
 heroku logs --tail
 ```
+
+heroku pg:psql postgresql-aerodynamic-23562 --app go-resto-app
