@@ -1,4 +1,4 @@
-module github.com/heroku/go-app-resto
+module go-app-resto
 
 go 1.15
 
