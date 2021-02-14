@@ -31,6 +31,11 @@ func HandlerRequest() {
 	router.HandleFunc("/categorias/get", interceptors.InterceptToken(categorias.ReadAll)).Methods("GET")
 
 	router.HandleFunc("/login", jwt.Access).Methods("POST")
+	router.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		//w.Write([]byte(respuestaString))
+		w.Write([]byte("ok"))
+	}).Methods("GET")
 
 	//router.HandleFunc("/peticion/{id}", peticion).Methods("GET")
 
