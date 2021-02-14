@@ -46,3 +46,14 @@ or
 For more information about using Go on Heroku, see these Dev Center articles:
 
 - [Go on Heroku](https://devcenter.heroku.com/categories/go)
+
+## Crar base de datos
+```
+$ heroku data:mtls:create restodb --app go-resto-app
+$ heroku data:mtls:ip-rules:create restodb --app go-resto-app \
+```
+
+## Ver logs heroku
+```
+heroku logs --tail
+```
